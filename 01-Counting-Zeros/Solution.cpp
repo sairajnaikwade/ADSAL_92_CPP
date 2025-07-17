@@ -1,38 +1,43 @@
 #include<iostream>
-#include<vector>
 using namespace std;
-int main()
-{
-    vector<int>nums={1, 1, 1, 1,0,0};
-    int low=0,high=nums.size()-1,mid;
-    if(nums[nums.size()-1]==1)
-    {
-        cout<<"No.of 0's : 0"<<endl;
-    }else if(nums[0]==0){
-        cout<<"No.of 0's : "<<nums.size();
-    }else{
-        while(low<=high)
-        {
-            mid=(low+high)/2;
-            if(nums[mid]==0)
-            {
-                if(nums[mid-1]==1)
-                {
-                    break;
-                }else{
-                    high=mid;
-                }
-            }else{
-                if(nums[mid+1]==0)
-                {
-                    mid=mid+1;
-                    break;
-                }else{
-                    low=mid;
-                }
+
+int main() {
+    int size, array[20], zerocount = 0;
+    cout << "enter array size: ";
+    cin >> size;
+    
+    cout << "enter array elements:\n";
+    for(int index = 0; index < size; index++) {
+        cout << "enter element " << index << ": ";
+        cin >> array[index];
+    }
+
+    int start = 0, end = size - 1, mid;
+    int firstzeroindex = -1;
+
+    while(start <= end) {
+        mid = (start + end) / 2;
+
+        if(array[mid] == 1) {
+            start = mid + 1;
+        }
+        else {
+            if(mid == 0 || array[mid - 1] == 1) {
+                firstzeroindex = mid;
+                break;
+            }
+            else {
+                end = mid - 1;
             }
         }
-        cout<<"No.of 0's : "<<nums.size()-mid<<endl;
-        
     }
+
+    if(firstzeroindex != -1) {
+        for(int i = firstzeroindex; i < size; i++) {
+            zerocount++;
+        }
+    }
+
+    cout << "the total 0s in this array are: " << zerocount;
+    return 0;
 }
